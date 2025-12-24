@@ -2787,4 +2787,42 @@ def run_main_loop(
 
 # =========================================================
 
+# ============================================================
+# [BOOTSTRAP] OBJECT ASSEMBLY ONLY (NO LOOP CALL)
+# ============================================================
+
+# --- STATE ---
+#state_mgr = StateManager(
+    state_file=CFG.get("STATE_FILE", "state.json")
+#)
+#state = state_mgr.load_state_or_init()
+
+# --- FEED ---
+#feed = MarketFeed(
+#    symbol=CFG.get("TRADE_SYMBOL") or CFG.get("0_TRADE_SYMBOL"),
+    cfg=CFG
+#)
+
+# --- CALC / LABEL ---
+#ema_calc = EMACalculator(cfg=CFG)
+#state_labeler = StateLabeler(cfg=CFG)
+
+# --- ENGINES ---
+#entry_engine = EntryEngine(cfg=CFG)
+#exit_engine = ExitEngine(cfg=CFG)
+#execution = ExecutionEngine(cfg=CFG)
+
+# (중요) 여기서는 run_main_loop 호출 ❌
+
+
+# ============================================================
+# [PROC-001] KEEP PROCESS ALIVE (BOOTSTRAP PLACEHOLDER)
+# ============================================================
+if __name__ == "__main__":
+    import time
+    while True:
+        time.sleep(1)
+
+
+
 
