@@ -2788,19 +2788,49 @@ def run_main_loop(
 # =========================================================
 
 # ============================================================
+# [BOOTSTRAP] MINIMAL (STEP 3-2)
+# ============================================================
+
+# --- SYMBOL ---
+BOOT_SYMBOL = CFG.get("TRADE_SYMBOL") or CFG.get("0_TRADE_SYMBOL")
+
+# --- STATE ---
+state = EngineState()
+
+# --- FEED ---
+# --- FEED ---
+cfg_mgr = CfgManager(CFG)
+adapter = ExchangeDataAdapter()
+feed = DataFeed(adapter, CFG)
+
+# --- MANAGER / ENGINES (기준선 최소 조립) ---
+state_mgr = Reconciler(CFG)
+
+entry_engine = RiskDecision(CFG)
+exit_engine  = RiskDecision(CFG)
+
+execution = ExchangePositionAdapter()
+
+state_labeler = EventLogger(CFG)
+
+ema_calc = None
+
+
+
+# ============================================================
 # [BOOTSTRAP] OBJECT ASSEMBLY ONLY (NO LOOP CALL)
 # ============================================================
 
 # --- STATE ---
 #state_mgr = StateManager(
-    state_file=CFG.get("STATE_FILE", "state.json")
+state_file=CFG.get("STATE_FILE", "state.json")
 #)
 #state = state_mgr.load_state_or_init()
 
 # --- FEED ---
 #feed = MarketFeed(
 #    symbol=CFG.get("TRADE_SYMBOL") or CFG.get("0_TRADE_SYMBOL"),
-    cfg=CFG
+cfg=CFG
 #)
 
 # --- CALC / LABEL ---
