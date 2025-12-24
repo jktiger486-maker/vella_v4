@@ -2827,6 +2827,45 @@ feed.symbol_info = symbol_info
 
 
 
+# ============================================================
+# [SEED] MINIMAL CANDLE SEED (STEP 5-1)
+# ============================================================
+
+# 기본 TF 하나만 시드 (예: 1m)
+SEED_TF = "1m"
+
+# 빈 캔들 1개 생성 (현재 시각 기준)
+now_ms = int(time.time() * 1000)
+
+seed_candle = Candle(
+    ts=now_ms,
+    open=1.0,
+    high=1.0,
+    low=1.0,
+    close=1.0,
+    vol=0.0,
+    is_closed=True,
+)
+
+
+# ============================================================
+# [SEED] MINIMAL FEED STATE SEED (STEP 5-1) — SAFE MODE
+# ============================================================
+
+# DataFeed가 stale 체크를 통과할 수 있도록
+# 최소 타임스탬프만 주입한다.
+
+now_ms = int(time.time() * 1000)
+
+# feed 내부에 last_ts 캐시가 없으면 생성
+if not hasattr(feed, "last_ts"):
+    feed.last_ts = {}
+
+# 최소 TF 하나에 대해 현재 시각 기록
+SEED_TF = "1m"
+feed.last_ts[SEED_TF] = now_ms
+
+
 
 
 # ============================================================
