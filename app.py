@@ -2912,13 +2912,21 @@ run_main_loop(
 )
 
 # ============================================================
-# [PROC-001] KEEP PROCESS ALIVE (BOOTSTRAP PLACEHOLDER)
+# [PROC-001] MAIN ENTRY — CONNECT MAIN LOOP (BLOCKING)
 # ============================================================
+
 if __name__ == "__main__":
-    import time
-    while True:
-        time.sleep(1)
-
-
+    run_main_loop(
+        symbol=symbol_info,
+        cfg=CFG,
+        feed=feed,
+        state=state,
+        state_mgr=state_mgr,
+        entry_engine=entry_engine,
+        exit_engine=exit_engine,
+        execution=execution,
+        state_labeler=state_labeler,
+        ema_calc=ema_calc,
+    )
 
 
