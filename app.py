@@ -2815,6 +2815,18 @@ state_labeler = EventLogger(CFG)
 
 ema_calc = None
 
+# --- SYMBOL INFO ---
+symbol_info = SymbolInfo(
+    raw=BOOT_SYMBOL,
+    market=BOOT_SYMBOL,
+    display=BOOT_SYMBOL,
+    base=BOOT_SYMBOL,
+)
+
+feed.symbol_info = symbol_info
+
+
+
 
 
 # ============================================================
@@ -2844,6 +2856,21 @@ cfg=CFG
 
 # (중요) 여기서는 run_main_loop 호출 ❌
 
+# ============================================================
+# [STEP 3-3] CONNECT MAIN LOOP (INTENTIONAL NEXT ERROR)
+# ============================================================
+run_main_loop(
+    symbol=symbol_info,
+    cfg=CFG,
+    feed=feed,
+    state=state,
+    state_mgr=state_mgr,
+    entry_engine=entry_engine,
+    exit_engine=exit_engine,
+    execution=execution,
+    state_labeler=state_labeler,
+    ema_calc=ema_calc,
+)
 
 # ============================================================
 # [PROC-001] KEEP PROCESS ALIVE (BOOTSTRAP PLACEHOLDER)
